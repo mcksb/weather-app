@@ -1,73 +1,67 @@
-# React + TypeScript + Vite
+# Weather App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A minimal, location-aware weather app built with React and TypeScript. Displays real-time weather conditions based on the user's device location, with a clean monospace aesthetic.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Automatic geolocation via browser API
+- Real-time weather data including temperature, humidity, wind speed, wind direction, gusts, surface pressure, and precipitation probability
+- Reverse geocoding to display the user's current city and country
+- Live clock synced to the device's local time
+- 16-point compass cardinal direction derived from wind bearing
+- Dublin, Ireland as a default fallback when geolocation is unavailable
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+| Purpose | Library |
+|---|---|
+| Framework | React 18 + TypeScript |
+| Build tool | Vite |
+| Styling | Tailwind CSS |
+| Weather data | [Open-Meteo](https://open-meteo.com/) |
+| Reverse geocoding | [Mapbox Geocoding API](https://docs.mapbox.com/api/search/geocoding/) |
+| Geolocation | [react-geolocated](https://github.com/no23reason/react-geolocated) |
+| Icons | react-icons |
 
-## Expanding the ESLint configuration
+## Getting Started
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Prerequisites
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- Node.js 18+
+- A Mapbox account and access token
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Installation
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+git clone https://github.com/your-username/weather-app.git
+cd weather-app
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Environment Variables
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Create a `.env` file in the project root:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
 ```
+VITE_MAPBOX_ACCESS_TOKEN=your_token_here
+```
+
+### Running Locally
+
+```bash
+npm run dev
+```
+
+## Roadmap
+
+- Weather condition codes with descriptive labels and icons
+- Hourly forecast strip
+- 7-day forecast with high/low temperature chart (Recharts)
+- Location search with timezone-aware clock
+- Skeleton loading states
+- localStorage caching
+- PWA support
+
+## Notes
+
+Open-Meteo is used for weather data and requires no API key. The Mapbox Geocoding API is used for reverse geocoding and requires a free account.
