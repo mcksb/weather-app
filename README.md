@@ -33,7 +33,7 @@ A minimal, location-aware weather app built with React and TypeScript. Displays 
 ### Installation
 
 ```bash
-git clone https://github.com/your-username/weather-app.git
+git clone https://github.com/mcksb/weather-app.git
 cd weather-app
 npm install
 ```
