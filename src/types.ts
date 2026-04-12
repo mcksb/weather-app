@@ -6,4 +6,5 @@ export interface WeatherData {
   windGusts: number | null,
   surfacePressure: number | null,
   precipitationProbability: number | null,
+  weatherCode: number | null,
 };
