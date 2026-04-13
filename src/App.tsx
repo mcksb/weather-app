@@ -9,20 +9,22 @@ import './App.css';
 function App() {
 
   return (
-      <section className="grid grid-cols-12 grid-rows-12 p-4 gap-4 grow">
+    <div className="flex justify-center grow">
+      <div className="grid grid-cols-12 grid-rows-10 p-4 gap-4 h-fit">
         {/* Hero Card */}
-        <div className="col-span-4 row-span-8">
+        <div className="col-span-4 row-span-7">
           {/* <HeroCard /> */}
           <CurrentConditions />
         </div>
-        <div className="col-span-8 row-span-8">
-          <div className="border border-white rounded-xl h-full">
-
+        <div className="col-span-8 row-span-7">
+          <div className="flex justify-between text-[14px] border border-white rounded-xl w-full h-full p-4">
+            <p>Hourly metrics</p>
+            <p>{new Date().toLocaleDateString('en-US')}</p>
           </div>
         </div>
-        <div className="col-span-12 row-span-4">
-          <div className="border border-white rounded-xl h-full">
-
+        <div className="col-span-12 row-span-3">
+          <div className="flex justify-between text-[14px] border border-white rounded-xl w-full h-full p-4">
+            Daily forecast
           </div>
         </div>
         {/* Graph Card
@@ -41,7 +43,8 @@ function App() {
         <div>
           <ForecastStrip />
         </div> */}
-      </section>
+      </div>
+    </div>
   )
 }
 
