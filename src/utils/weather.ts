@@ -73,7 +73,7 @@ const WEATHER_ICONS: Record<number, React.ComponentType<{ className?: string}>> 
     95: WiThunderstorm,
     96: WiThunderstorm,
     99: WiThunderstorm,
-}
+};
 
 export const LOADING_PHRASES = [
     'Loading weather',

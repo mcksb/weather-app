@@ -17,6 +17,9 @@ interface MapboxFeature {
     }
 };
 
+const toNumberArray = (arr: Float32Array | null | undefined): number[] | null =>
+    arr ? Array.from(arr) : null;
+
 const WeatherContext = createContext<WeatherContextType | null>(null);
 
 export default function WeatherProvider({ children }: { children: React.ReactNode }) {
@@ -25,14 +28,47 @@ export default function WeatherProvider({ children }: { children: React.ReactNod
     
     // Weather data states
     const [weatherData, setWeatherData] = useState<WeatherData | null>({
-        temperature: null,
-        humidity: null,
-        windSpeed: null,
-        windDirection: null,
-        windGusts: null,
-        surfacePressure: null,
-        precipitationProbability: null,
-        weatherCode: null,
+        current: {
+            temperature: null,
+            relativeHumidity: null,
+            apparentTemperature: null,
+            isDay: null,
+            windSpeed: null,
+            windDirection: null,
+            windGusts: null,
+            precipitation: null,
+            rain: null,
+            showers: null,
+            weatherCode: null,
+            surfacePressure: null,
+            snowfall: null,
+            cloudCover: null,
+            time: null,
+        },
+        hourly: {
+            temperature: null,
+            humidity: null,
+            windSpeed: null,
+            windDirection: null,
+            windGusts: null,
+            surfacePressure: null,
+            precipitationProbability: null,
+            weatherCode: null,
+            time: null,
+        },
+        daily: {
+            temperatureMax: null,
+            temperatureMin: null,
+            weatherCode: null,
+            sunrise: null,
+            sunset: null,
+            windSpeedMax: null,
+            windGustsMax: null,
+            windDirectionDom: null,
+            precipitationProbabilityMax: null,
+            daylightDuration: null,
+            time: null,
+        },
     });
     
     // Display data states
@@ -51,19 +87,47 @@ export default function WeatherProvider({ children }: { children: React.ReactNod
     const weatherFetch = useCallback(async () => {
         const url = 'https://api.open-meteo.com/v1/forecast';
         const params = {
-        latitude: latitude,
-        longitude: longitude,
-        hourly: [
-            "temperature_2m",
-            "relative_humidity_2m",
-            "wind_speed_10m",
-            "wind_direction_10m",
-            "wind_gusts_10m",
-            "surface_pressure",
-            "precipitation_probability",
-            "weather_code",
-        ],
-        forecast_days: 1,
+            latitude: latitude,
+            longitude: longitude,
+            current: [
+                "temperature_2m",
+                "relative_humidity_2m",
+                "apparent_temperature",
+                "is_day",
+                "wind_speed_10m",
+                "wind_direction_10m",
+                "wind_gusts_10m",
+                "precipitation",
+                "rain",
+                "showers",
+                "weather_code",
+                "surface_pressure",
+                "snowfall",
+                "cloud_cover"
+            ],
+            hourly: [
+                "temperature_2m",
+                "relative_humidity_2m",
+                "wind_speed_10m",
+                "wind_direction_10m",
+                "wind_gusts_10m",
+                "surface_pressure",
+                "precipitation_probability",
+                "weather_code",
+            ],
+            daily: [
+                "temperature_2m_max",
+                "temperature_2m_min",
+                "weather_code",
+                "sunrise",
+                "sunset",
+                "wind_speed_10m_max",
+                "wind_gusts_10m_max",
+                "wind_direction_10m_dominant",
+                "precipitation_probability_max",
+                "daylight_duration"
+            ],
+            timeformat: "unixtime",
         }
         const responses = await fetchWeatherApi(url, params)
         const response = responses[0];
@@ -73,31 +137,74 @@ export default function WeatherProvider({ children }: { children: React.ReactNod
         const elevationRes = response.elevation();
         const utcOffsetSeconds = response.utcOffsetSeconds();
 
+        const current = response.current()!;
         const hourly = response.hourly()!;
+        const daily = response.daily()!;
+
+        const sunrise = daily.variables(3)!;
+        const sunset = daily.variables(4)!;
 
         const weatherData = {
-        hourly: {
-            time: Array.from(
-            { length: (Number(hourly.timeEnd()) - Number(hourly.time())) / hourly.interval() }, 
-            (_ , i) => new Date((Number(hourly.time()) + i * hourly.interval() + utcOffsetSeconds) * 1000)
-            ),
-            temperature_2m: hourly.variables(0)!.valuesArray(),
-            relative_humidity_2m: hourly.variables(1)!.valuesArray(),
-            wind_speed_10m: hourly.variables(2)!.valuesArray(),
-            wind_direction_10m: hourly.variables(3)!.valuesArray(),
-            wind_gusts_10m: hourly.variables(4)!.valuesArray(),
-            surface_pressure: hourly.variables(5)!.valuesArray(),
-            precipitation_probability: hourly.variables(6)!.valuesArray(),
-            weather_code: hourly.variables(7)!.valuesArray(),
-        },
+            current: {
+                time: new Date((Number(current.time()) + utcOffsetSeconds) * 1000),
+                temperature_2m: current.variables(0)!.value(),
+                relative_humidity_2m: current.variables(1)!.value(),
+                apparent_temperature: current.variables(2)!.value(),
+                is_day: current.variables(3)!.value(),
+                wind_speed_10m: current.variables(4)!.value(),
+                wind_direction_10m: current.variables(5)!.value(),
+                wind_gusts_10m: current.variables(6)!.value(),
+                precipitation: current.variables(7)!.value(),
+                rain: current.variables(8)!.value(),
+                showers: current.variables(9)!.value(),
+                weather_code: current.variables(10)!.value(),
+                surface_pressure: current.variables(11)!.value(),
+                snowfall: current.variables(12)!.value(),
+                cloud_cover: current.variables(13)!.value(),
+            },        
+            hourly: {
+                time: Array.from(
+                { length: (Number(hourly.timeEnd()) - Number(hourly.time())) / hourly.interval() }, 
+                (_ , i) => new Date((Number(hourly.time()) + i * hourly.interval() + utcOffsetSeconds) * 1000)
+                ),
+                temperature_2m: hourly.variables(0)!.valuesArray(),
+                relative_humidity_2m: hourly.variables(1)!.valuesArray(),
+                wind_speed_10m: hourly.variables(2)!.valuesArray(),
+                wind_direction_10m: hourly.variables(3)!.valuesArray(),
+                wind_gusts_10m: hourly.variables(4)!.valuesArray(),
+                surface_pressure: hourly.variables(5)!.valuesArray(),
+                precipitation_probability: hourly.variables(6)!.valuesArray(),
+                weather_code: hourly.variables(7)!.valuesArray(),
+            },
+            daily: {
+                time: Array.from(
+                    { length: (Number(daily.timeEnd()) - Number(daily.time())) / daily.interval() }, 
+                    (_ , i) => new Date((Number(daily.time()) + i * daily.interval() + utcOffsetSeconds) * 1000)
+                ),
+                temperature_2m_max: daily.variables(0)!.valuesArray(),
+                temperature_2m_min: daily.variables(1)!.valuesArray(),
+                weather_code: daily.variables(2)!.valuesArray(),
+                // Map Int64 values to according structure
+                sunrise: [...Array(sunrise.valuesInt64Length())].map(
+                    (_ , i) => new Date((Number(sunrise.valuesInt64(i)) + utcOffsetSeconds) * 1000)
+                ),
+                // Map Int64 values to according structure
+                sunset: [...Array(sunset.valuesInt64Length())].map(
+                    (_ , i) => new Date((Number(sunset.valuesInt64(i)) + utcOffsetSeconds) * 1000)
+                ),
+                wind_speed_10m_max: daily.variables(5)!.valuesArray(),
+                wind_gusts_10m_max: daily.variables(6)!.valuesArray(),
+                wind_direction_10m_dominant: daily.variables(7)!.valuesArray(),
+                precipitation_probability_max: daily.variables(8)!.valuesArray(),
+                daylight_duration: daily.variables(9)!.valuesArray(),
+            },
         };
-
         return {
-        weatherData: weatherData,
-        latitude: latitudeRes,
-        longitude: longitudeRes,
-        elevation: elevationRes,
-        utcOffsetSeconds: utcOffsetSeconds,
+            weatherData: weatherData,
+            latitude: latitudeRes,
+            longitude: longitudeRes,
+            elevation: elevationRes,
+            utcOffsetSeconds: utcOffsetSeconds,
         }
     }, [latitude, longitude]);
 
@@ -105,60 +212,57 @@ export default function WeatherProvider({ children }: { children: React.ReactNod
         try {
         const data = await weatherFetch();
         if (!data) return
-        
-        const now = new Date();
-        now.setMinutes(0, 0, 0);
-        
-        const index = data.weatherData.hourly.time.findIndex(
-            (entry) => entry.getTime() === now.getTime()
-        );
-        
-        if (index === -1) {
-            setWeatherError('Failed to fetch weather data')
-            return
-        }
-        
-        const values = [
-            data.weatherData.hourly.temperature_2m,
-            data.weatherData.hourly.relative_humidity_2m,
-            data.weatherData.hourly.wind_speed_10m,
-            data.weatherData.hourly.wind_direction_10m,
-            data.weatherData.hourly.wind_gusts_10m,
-            data.weatherData.hourly.surface_pressure,
-            data.weatherData.hourly.precipitation_probability,
-            data.weatherData.hourly.weather_code,
-        ];
 
-        for (const value of values) {
-            if (!value) {
-            setWeatherError('Failed to fetch weather data')
-            return
-            }
-        };
-
+        const current = data.weatherData.current;
         const hourly = data.weatherData.hourly;
-        const temperature = Math.floor(hourly.temperature_2m![index]);
-        const humidity = hourly.relative_humidity_2m![index];
-        const windSpeed = Math.floor(hourly.wind_speed_10m![index]);
-        const windDirection = hourly.wind_direction_10m![index];
-        const windGusts = Math.floor(hourly.wind_gusts_10m![index]);
-        const surfacePressure = Math.floor(hourly.surface_pressure![index]);
-        const precipitationProbability = hourly.precipitation_probability![index];
-        const weatherCode = hourly.weather_code![index];
+        const daily = data.weatherData.daily;
 
         setWeatherData({
-            temperature: temperature,
-            humidity: humidity,
-            windSpeed: windSpeed,
-            windDirection: windDirection,
-            windGusts: windGusts,
-            surfacePressure: surfacePressure,
-            precipitationProbability: precipitationProbability,
-            weatherCode: weatherCode,
+            current: {
+                temperature: Math.floor(current.temperature_2m),
+                relativeHumidity: Math.floor(current.relative_humidity_2m),
+                apparentTemperature: Math.floor(current.apparent_temperature),
+                isDay: current.is_day,
+                windSpeed: Math.floor(current.wind_speed_10m),
+                windDirection: current.wind_direction_10m,
+                windGusts: Math.floor(current.wind_gusts_10m),
+                precipitation: current.precipitation,
+                rain: current.rain,
+                showers: current.showers,
+                weatherCode: current.weather_code,
+                surfacePressure: Math.floor(current.surface_pressure),
+                snowfall: current.snowfall,
+                cloudCover: current.cloud_cover,
+                time: current.time,
+            },
+            hourly: {
+                temperature: toNumberArray(hourly.temperature_2m),
+                humidity: toNumberArray(hourly.relative_humidity_2m),
+                windSpeed: toNumberArray(hourly.wind_speed_10m),
+                windDirection: toNumberArray(hourly.wind_direction_10m),
+                windGusts: toNumberArray(hourly.wind_gusts_10m),
+                surfacePressure: toNumberArray(hourly.surface_pressure),
+                precipitationProbability: toNumberArray(hourly.precipitation_probability),
+                weatherCode: toNumberArray(hourly.weather_code),
+                time: hourly.time,
+            },
+            daily: {
+                temperatureMax: toNumberArray(daily.temperature_2m_max),
+                temperatureMin: toNumberArray(daily.temperature_2m_min),
+                weatherCode: toNumberArray(daily.weather_code),
+                sunrise: daily.sunrise,
+                sunset: daily.sunset,
+                windSpeedMax: toNumberArray(daily.wind_speed_10m_max),
+                windGustsMax: toNumberArray(daily.wind_gusts_10m_max),
+                windDirectionDom: toNumberArray(daily.wind_direction_10m_dominant),
+                precipitationProbabilityMax: toNumberArray(daily.precipitation_probability_max),
+                daylightDuration: toNumberArray(daily.daylight_duration),
+                time: daily.time,
+            },
         })
         setWeatherError(null);
         } catch (err) {
-        setWeatherError('Failed to fetch weather data');
+            setWeatherError('Failed to fetch weather data');
         };
     }, [weatherFetch]);
 
