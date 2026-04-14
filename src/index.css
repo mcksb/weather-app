@@ -1,3 +1,45 @@
+@import "tailwindcss";
+
+@theme {
+  /* Fonts */
+  --font-mono: "Geist Mono", monospace;
+
+  /* Slate (surfaces, text, borders) */
+  --color-weather-slate-50:  #F4F4F2;
+  --color-weather-slate-100: #DDDDD8;
+  --color-weather-slate-200: #B8B8B2;
+  --color-weather-slate-400: #888884;
+  --color-weather-slate-600: #505050;
+  --color-weather-slate-800: #2A2A28;
+  --color-weather-slate-900: #1A1A18;
+  --color-weather-slate-950: #111110;
+
+  /* Rain (blue) */
+  --color-weather-rain-50:  #E8F4FD;
+  --color-weather-rain-100: #BAD9F5;
+  --color-weather-rain-200: #82BAEB;
+  --color-weather-rain-400: #4A97D8;
+  --color-weather-rain-600: #2068A8;
+  --color-weather-rain-800: #0E3F6C;
+  --color-weather-rain-900: #071E36;
+
+  /* Sun (yellow) */
+  --color-weather-sun-50:  #FDF8E4;
+  --color-weather-sun-100: #FAEDB0;
+  --color-weather-sun-200: #F5D96A;
+  --color-weather-sun-400: #E8BE2A;
+  --color-weather-sun-600: #B58B0E;
+  --color-weather-sun-800: #7A5C06;
+  --color-weather-sun-900: #3D2D02;
+
+  /* Frost (snow/sleet) */
+  --color-weather-frost-50:  #EFF6FB;
+  --color-weather-frost-100: #C8E0F0;
+  --color-weather-frost-200: #A0C8E4;
+  --color-weather-frost-400: #63A4CC;
+  --color-weather-frost-600: #32729A;
+}
+
 :root {
   --text: #9ca3af;
   --text-h: #f3f4f6;

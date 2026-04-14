@@ -34,12 +34,12 @@ export default function Wind() {
                     <div>
                         <div className="flex items-center justify-center gap-2 py-6 text-[14px]">
                             <WiDirectionUp className="text-[36px]" style={{
-                                transform: `rotate(${(weatherData.windDirection ?? 0) + 180}deg)`
+                                transform: `rotate(${(weatherData.current.windDirection ?? 0) + 180}deg)`
                             }} />
                         </div>
                         <div className="flex flex-col items-start">
-                            <p className="text-white text-[18px]">{weatherData.windSpeed} km/h</p>
-                            <p className="text-[12px]">Gusts {weatherData.windGusts} km/h · {getCardinal(weatherData.windDirection ?? 0)}</p>      
+                            <p className="text-white text-[18px]">{weatherData.current.windSpeed} km/h</p>
+                            <p className="text-[12px]">Gusts {weatherData.current.windGusts} km/h · {getCardinal(weatherData.current.windDirection ?? 0)}</p>      
                         </div>
                     </div>
                 </>

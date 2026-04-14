@@ -1,5 +1,3 @@
-import { useWeather } from "../../context/WeatherContext";
-import { weatherIcons } from "../../utils/weather"
 import ForecastCard from "./components/ForecastCard";
 
 export default function ForecastStrip() {
@@ -12,13 +10,10 @@ export default function ForecastStrip() {
         {id: 5, dayIndex: 5},
         {id: 6, dayIndex: 6},
     ];
-    
+
     return (
-        <div className="border border-white rounded-xl px-4 pt-1 pb-2">
-            <div className="justify-start">
-                <p className="text-grey text-[11px]">Daily forecast</p>
-            </div>
-            <div className="flex justify-between gap-4">
+        <div className="relative w-full">
+            <div className="flex flex-row overflow-x-auto gap-4 pb-2">
                 {days.map(day => 
                     <ForecastCard key={day.id} dayIndex={day.dayIndex} />
                 )}

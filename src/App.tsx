@@ -1,7 +1,4 @@
-import HeroCard from './components/weather/HeroCard';
 import GraphCard from './components/weather/GraphCard';
-import WindCard from './components/weather/WindCard';
-import AtmosphereCard from './components/weather/AtmosphereCard';
 import ForecastStrip from './components/weather/ForecastStrip';
 import CurrentConditions from './components/weather/CurrentConditions';
 import './App.css';
@@ -9,40 +6,17 @@ import './App.css';
 function App() {
 
   return (
-    <div className="flex justify-center grow">
-      <div className="grid grid-cols-12 grid-rows-10 p-4 gap-4 h-fit">
-        {/* Hero Card */}
-        <div className="col-span-4 row-span-7">
-          {/* <HeroCard /> */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 max-w-[80%]">
+        <div className="col-span-1 h-full order-1">
           <CurrentConditions />
         </div>
-        <div className="col-span-8 row-span-7">
-          <div className="flex justify-between text-[14px] border border-white rounded-xl w-full h-full p-4">
-            <p>Hourly metrics</p>
-            <p>{new Date().toLocaleDateString('en-US')}</p>
-          </div>
-        </div>
-        <div className="col-span-12 row-span-3">
-          <ForecastStrip />
-        </div>
-        {/* Graph Card
-        <div>
+        <div className="col-span-1 md:col-span-2 h-full order-3 md:order-2">
           <GraphCard />
-        </div>        
-        Wind Card
-        <div>
-          <WindCard />
         </div>
-        Atmosphere Card
-        <div>
-          <AtmosphereCard />
-        </div>
-        Forecast Strip
-        <div>
+        <div className="col-span-1 md:col-span-3 self-start order-2 md:order-3 -mx-4 md:mx-0">
           <ForecastStrip />
-        </div> */}
+        </div>
       </div>
-    </div>
   )
 }
 

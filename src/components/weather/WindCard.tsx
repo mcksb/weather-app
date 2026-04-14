@@ -42,7 +42,7 @@ export default function WindCard() {
                         </div>
                         <div className="flex flex-col items-start">
                             <p className="text-white text-[18px]">{weatherData.current.windSpeed} km/h</p>
-                            <p className="text-[12px]">Gusts {weatherData.current.windGusts} km/h · {getCardinal(weatherData.windDirection ?? 0)}</p>      
+                            <p className="text-[12px]">Gusts {weatherData.current.windGusts} km/h · {getCardinal(weatherData.current.windDirection ?? 0)}</p>      
                         </div>
                     </div>
                 </>
