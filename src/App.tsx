@@ -23,9 +23,7 @@ function App() {
           </div>
         </div>
         <div className="col-span-12 row-span-3">
-          <div className="flex justify-between text-[14px] border border-white rounded-xl w-full h-full p-4">
-            Daily forecast
-          </div>
+          <ForecastStrip />
         </div>
         {/* Graph Card
         <div>
