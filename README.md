@@ -17,22 +17,15 @@ A minimal, location-aware weather app built with React and TypeScript. Displays 
 
 ## Tech Stack
 
-`TypeScript`
-
-`React + Vite`
-
-`Tailwind CSS`
-
-`Open-Meteo API`
-
-`Mapbox Geocoding API`
-
-`AWS S3`
-
-`AWS CloudFront`
-
-`Cloudflare DNS`
-
+| Category | Technology |
+|---|---|
+| Language | `TypeScript` |
+| Framework | `React + Vite` |
+| Styling | `Tailwind CSS` |
+| Weather Data | `Open-Meteo API` |
+| Location Data | `Mapbox Geocoding API` |
+| Hosting | `AWS S3 + CloudFront` |
+| DNS | `Cloudflare` |
 
 ## Getting Started
 
