@@ -1,6 +1,6 @@
-import { useWeather } from "../../context/WeatherContext"
+import { useWeather } from "@context/WeatherContext"
 import { WiDirectionUp } from "react-icons/wi";
-import { getCardinal } from "../../utils/weather";
+import { getCardinal } from "@utils/weather";
 import { ThreeDots } from "react-loader-spinner";
 
 export default function WindCard() {

@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback, useContext, createContext } from 'react';
 import { useGeolocated } from 'react-geolocated';
 import { fetchWeatherApi } from 'openmeteo';
-import type { WeatherData } from '../types';
+import type { WeatherData } from '@/types';
 
 interface WeatherContextType {
     city: string | null;

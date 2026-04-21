@@ -1,8 +1,8 @@
 import { useMemo } from "react";
-import { useWeather } from "../../../context/WeatherContext";
-import { weatherIcons } from "../../../utils/weather";
-import { setSelectedHook } from "../../../context/ForecastContext";
-import { useSelected } from "../../../context/ForecastContext";
+import { useWeather } from "@context/WeatherContext";
+import { weatherIcons } from "@utils/weather";
+import { setSelectedHook } from "@context/ForecastContext";
+import { useSelected } from "@context/ForecastContext";
 
 interface Props {
     dayIndex: number;

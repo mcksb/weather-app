@@ -1,4 +1,4 @@
-import ForecastCard from "./components/ForecastCard";
+import ForecastCard from "@/components/weather/ForecastCard";
 
 export default function ForecastStrip() {
     const days = [

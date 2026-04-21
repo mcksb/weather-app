@@ -1,8 +1,8 @@
 import { useEffect, useState, useMemo } from 'react';
 import { ThreeDots } from 'react-loader-spinner';
-import { weatherStatus, weatherIcons } from '../../utils/weather';
-import { useWeather } from '../../context/WeatherContext';
-import { LOADING_PHRASES } from '../../utils/weather';
+import { weatherStatus, weatherIcons } from '@utils/weather';
+import { useWeather } from '@context/WeatherContext';
+import { LOADING_PHRASES } from '@utils/weather';
 
 export default function HeroCard() {
     const { city, weatherData } = useWeather();

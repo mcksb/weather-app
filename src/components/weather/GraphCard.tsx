@@ -1,7 +1,7 @@
 import { useMemo } from "react";
-import { useWeather } from "../../context/WeatherContext";
-import { useSelected } from "../../context/ForecastContext";
-import MiniChart from "./components/MiniChart";
+import { useWeather } from "@context/WeatherContext";
+import { useSelected } from "@context/ForecastContext";
+import MiniChart from "@/components/weather/MiniChart";
 
 export default function GraphCard() {
     const { weatherData } = useWeather();

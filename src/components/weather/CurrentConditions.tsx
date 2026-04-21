@@ -1,5 +1,5 @@
-import { useWeather } from "../../context/WeatherContext"
-import { weatherIcons, weatherStatus } from "../../utils/weather";
+import { useWeather } from "@context/WeatherContext"
+import { weatherIcons, weatherStatus } from "@utils/weather";
 
 export default function CurrentConditions() {
     const { city, weatherData } = useWeather();

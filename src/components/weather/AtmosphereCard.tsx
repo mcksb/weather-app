@@ -1,4 +1,4 @@
-import { useWeather } from "../../context/WeatherContext"
+import { useWeather } from "@context/WeatherContext";
 import { ThreeDots } from "react-loader-spinner";
 
 export default function AtmosphereCard() {

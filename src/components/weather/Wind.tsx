@@ -1,9 +1,9 @@
 import { useMemo } from "react";
-import { useWeather } from "../../../context/WeatherContext";
-import { LOADING_PHRASES } from "../../../utils/weather";
+import { useWeather } from "@context/WeatherContext";
+import { LOADING_PHRASES } from "@utils/weather";
 import { ThreeDots } from "react-loader-spinner";
 import { WiDirectionUp } from "react-icons/wi";
-import { getCardinal } from "../../../utils/weather";
+import { getCardinal } from "@utils/weather";
 
 export default function Wind() {
     const { weatherData } = useWeather();
