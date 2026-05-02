@@ -12,8 +12,8 @@ createRoot(document.getElementById('root')!).render(
     <WeatherProvider>
       <ForecastProvider>
         <div className="flex flex-col min-h-screen bg-weather-slate-950">
-          <Header />
-          <main className="flex flex-1 justify-center">
+          {/* <Header /> */}
+          <main className="flex flex-1 justify-center items-center">
             <App />
           </main>
           <Footer />

@@ -1,4 +1,4 @@
-import { ResponsiveContainer, LineChart, Line, Tooltip } from "recharts";
+import { ResponsiveContainer, LineChart, Line, Tooltip, YAxis, XAxis } from "recharts";
 
 interface ChartProps {
     data: object[] | undefined;
@@ -43,6 +43,17 @@ export default function MiniChart({ data, dataKey, title, colour='#ffffff', tool
                             stroke={colour}
                             dot={false}
                             strokeWidth={1.5}
+                        />
+                        <YAxis
+                            tickCount={5}
+                            axisLine={true}
+                            fontSize={0}
+                            width={1}
+                        />
+                        <XAxis
+                            fontSize={0}
+                            tickCount={1}
+                            height={1}
                         />
                         <Tooltip
                             content={(props) => <CustomTooltip title={tooltipTitle} unit={tooltipUnit} {...props} />}

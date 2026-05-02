@@ -13,7 +13,7 @@ export default function ForecastStrip() {
 
     return (
         <div className="relative w-full">
-            <div className="flex flex-row overflow-x-auto gap-4 pb-2">
+            <div className="flex flex-row overflow-x-scroll gap-4 pb-2">
                 {days.map(day => 
                     <ForecastCard key={day.id} dayIndex={day.dayIndex} />
                 )}

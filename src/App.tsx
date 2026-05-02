@@ -13,7 +13,7 @@ function App() {
         <div className="col-span-1 md:col-span-2 h-full order-3 md:order-2">
           <GraphCard />
         </div>
-        <div className="col-span-1 md:col-span-3 self-start order-2 md:order-3 -mx-4 md:mx-0">
+        <div className="col-span-1 md:col-span-3 self-start order-2 md:order-3">
           <ForecastStrip />
         </div>
       </div>
